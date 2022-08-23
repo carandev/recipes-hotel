@@ -20,32 +20,33 @@ function App() {
     }
   };
 
+
   useEffect(() => {
     setOffset(0)
-    if (search.length > 3){
-      axios.request(options).then(function (response) {
+    if (search.length > 3) {
+      axios.request(options).then(function(response) {
         setRecipes(response.data.results)
-      }).catch(function (error) {
+      }).catch(function(error) {
         console.error(error);
       });
     }
   }, [search])
 
   const handleClick = action => {
-    if (action === '<'){
-      if(offset < 1){return}
+    if (action === '<') {
+      if (offset < 1) { return }
 
-      setOffset(offset-1)
-      axios.request(options).then(function (response) {
+      setOffset(offset - 1)
+      axios.request(options).then(function(response) {
         setRecipes(response.data.results)
-      }).catch(function (error) {
+      }).catch(function(error) {
         console.error(error);
       });
     } else {
-      setOffset(offset+1)
-      axios.request(options).then(function (response) {
+      setOffset(offset + 1)
+      axios.request(options).then(function(response) {
         setRecipes(response.data.results)
-      }).catch(function (error) {
+      }).catch(function(error) {
         console.error(error);
       });
     }
@@ -53,11 +54,11 @@ function App() {
 
   return (
     <>
-      <input type="text" onChange={e => setSearch(e.target.value)} value={search}/>
+      <input type="text" onChange={e => setSearch(e.target.value)} value={search} />
       <main className={styles.main}>
         {
-        recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>)
-      }
+          recipes.map(recipeItem => <RecipeCard id={recipeItem.id} key={recipeItem.id} recipe={recipeItem} />)
+        }
       </main>
       <button onClick={() => handleClick("<")}>{"<"}</button>
       <button onClick={() => handleClick(">")}>{">"}</button>
